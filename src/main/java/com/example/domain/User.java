@@ -8,6 +8,8 @@ public class User {
     private Integer age;
     private Address address;
 
+    private String desc;
+
     public String getName() {
         return name;
     }
@@ -30,5 +32,13 @@ public class User {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }

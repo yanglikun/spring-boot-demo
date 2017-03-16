@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,10 +17,11 @@ import java.util.List;
 public class ThymeleafController {
 
     @RequestMapping
-    public String tl(Model model){
+    public String tl(Model model) {
         User user1 = new User();
         user1.setName("name-1");
         user1.setAge(1);
+        user1.setDesc("a<b>b</b>c");
 
         User user2 = new User();
         user2.setName("name-2");
@@ -28,6 +30,10 @@ public class ThymeleafController {
 
         model.addAttribute("users", users);
         model.addAttribute("user", user1);
+
+        User emptyUser = new User();
+        model.addAttribute("emptyUser", emptyUser);
+        model.addAttribute("today", new Date());
         return "tl";
     }
 }

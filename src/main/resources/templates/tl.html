@@ -1,10 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .outer {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
+表达式
+<hr/>
+<div class="outer">
+    内容替换：
+    <div th:text="${user.name}">这里是名字</div>
+</div>
+<div class="outer">
+    是否转义html：
+    <div th:text="${user.desc}"></div>
+    <div th:utext="${user.desc}"></div>
+</div>
+<div class="outer">
+    不存在变量：
+    <div th:text="${userNotExist?.name?.a?.b}"></div>
+    <div th:text="${userNotExist}"></div>
+</div>
+<div class="outer">
+    日期格式化：
+    <div th:text="${#calendars.format(today,'yyy-MM-dd HH:mm:ss')}"></div>
+</div>
+<div class="outer">
+    *号操作符
+    <div th:object="${user}">
+        name:<span th:text="*{name}"></span><br/>
+        age:<span th:text="*{age}"></span><br/>
+        <!-- #object 等价于当前的th:object-->
+        name:<span th:text="${#object.name}"></span><br/>
+    </div>
+</div>
+<div class="outer">
+    内嵌[[${user.name}]]元素
+</div>
+<hr/>
+url
+<hr>
+<div class="outer">
+    绝对地址:
+    <a href="aa.html" th:href="@{http://www.baidu.com/order/aa.html(name=${user.name})}">aa</a>
+</div>
+<hr>
+条件判断
+<hr>
+<div th:if="1==1">aa</div>
+<!-- 不会渲染这个span-->
+<div th:if="1==2">bb</div>
+<div th:text="${a?.b?.c}?:_">默认值</div>
+<hr>
+循环
+<hr>
+<table>
+    <tr th:each="u,stat:${users}">
+        <td th:text="${stat.index}"></td>
+        <td th:text="${u.name}"></td>
+        <td th:text="${u.age}"></td>
+        <td href="/desc.html?name=[[${u.name}]]" th:if="${u.desc}">描述</td>
+    </tr>
+</table>
+<hr/>
+模板
+<hr/>
+insert
+<div class="divout1" th:insert="~{layout/footer::footer}"></div>
+replace
+<div class="divout2" th:replace="layout/footer::footer"></div>
+include
+<div class="divout3" th:include="layout/footer::footer"></div>
+
+<div th:insert="::frag(1,2)">
+
+</div>
+
+<div th:fragment="frag (onevar,twovar)">
+    <p th:text="${onevar} + ' - ' + ${twovar}">...</p>
+</div>
 
 </body>
 </html>
