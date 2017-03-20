@@ -5,16 +5,16 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component("dbConfig")
-@PropertySource("classpath:config/db.properties")
+@PropertySource(value = "classpath:test.properties",ignoreResourceNotFound = true)
 public class DBConfig {
 
-    @Value("${db.url}")
+    @Value("${test.url}")
     private String url;
 
-    @Value("${db.userName}")
+    @Value("${test.userName}")
     private String userName;
 
-    @Value("${db.password}")
+    @Value("${test.password}")
     private String password;
 
     public String getUrl() {
